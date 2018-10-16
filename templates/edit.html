@@ -1,0 +1,72 @@
+<doctype html>
+<title>Edit- NSE Details</title>
+<h2>Edit Details</h2>
+<form method="post" action="/update">
+    <dl>
+		<!--
+		<p>
+			<input name="inputName" value="{{ row['user_name'] }}" type="text" placeholder="Name" autocomplete="off" required>
+		</p>
+		<p>
+			<input name="inputEmail" value="{{ row['user_email'] }}" type="text" placeholder="Email" autocomplete="off" required>
+		</p>
+		<p>
+			<input name="inputPassword" value="" type="password" placeholder="Password" autocomplete="off" required>
+		</p> -->
+		
+		<p>
+			<input name="inputsymbol" value="{{ row['user_symbol'] }}" type="text" placeholder="symbol" autocomplete="off" required>
+		</p>
+		<p>
+			<input name="inputdate" value="{{ row['user_date'] }}" type="text" placeholder="date" autocomplete="off" required>
+		</p>
+		<p>
+			<input name="inputhigh" value="{{ row['user_high'] }}" type="text" placeholder="high" autocomplete="off" required>
+		</p>
+		<p>
+			<input name="inputlow" value="{{ row['user_low'] }}" type="text" placeholder="low" autocomplete="off" required>
+		</p>
+		<p>
+			<input name="inputvolume" value="{{ row['user_volume'] }}" type="text" placeholder="volume" autocomplete="off" required>
+		</p>
+		<p>
+			<input name="inputopen" value="{{ row['user_open'] }}" type="text" placeholder="open" autocomplete="off" required>
+		</p>
+		<p>
+			<input name="inputclose" value="{{ row['user_close'] }}" type="text" placeholder="close" autocomplete="off" required>
+		</p>	
+    </dl>
+    <p>
+		<input name="id" value="{{ row['user_id'] }}" type="hidden">
+		<input type="submit" value="Submit">
+	</p>
+</form>
+<!--
+CREATE TABLE `tbl_user` (
+  `user_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `user_email` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `user_password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;-->
+
+
+
+
+<!--
+CREATE TABLE `bse` (
+  `user_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `symbol` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `date` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `high` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `low` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `volume` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `open` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `close` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+-->
+
+
+
+
