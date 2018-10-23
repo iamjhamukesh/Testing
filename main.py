@@ -4,11 +4,11 @@ from tables import Results
 from db_config import mysql
 from flask import flash, render_template, request, redirect
 from werkzeug import generate_password_hash, check_password_hash
-
+from contextlib import closing
 '''
 CREATE TABLE `bse` (
   `user_id` bigint(20) NOT NULL AUTO_INCREMENT,
-   symbol varchar(50),date varchar(15),high varchar(10),low varchar(10),volume varchar(10),open varchar(10),close varchar(10),
+   symbol varchar(50),date1 varchar(15),high varchar(10),low varchar(10),volume varchar(10),open varchar(10),close varchar(10),
    PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 '''
@@ -36,7 +36,7 @@ def add_user():
 			#do not save password as a plain text
 			#_hashed_password = generate_password_hash(_password)
 			# save edits
-			sql = "INSERT INTO bse(symbol,date,high,low,volume,open,close) VALUES(%s, %s, %s, %s, %s, %s, %s)"
+			sql = "INSERT INTO bse(symbol,date1,high,low,volume,open,close) VALUES(%s, %s, %s, %s, %s, %s, %s)"
 			#data = (_name, _email, _hashed_password,)
 			data=(_symbol,_date,_high,_low,_volume,_open,_close)			
 			conn = mysql.connect()
@@ -56,13 +56,15 @@ def add_user():
 @app.route('/')
 def users():
 	try:
-		conn = mysql.connect()
-		cursor = conn.cursor(pymysql.cursors.DictCursor)
-		cursor.execute("SELECT * FROM bse")
-		rows = cursor.fetchall()
-		table = Results(rows)
-		table.border = True
-		return render_template('users.html', table=table)
+	  #with closing(mysql.connect()) as conn:
+	  #	with closing(conn.cursor()) as cursor:
+			conn = mysql.connect()
+			cursor = conn.cursor(pymysql.cursors.DictCursor)
+			cursor.execute("SELECT * FROM bse")
+			rows = cursor.fetchall()
+			table = Results(rows)
+			table.border = True
+			return render_template('users.html', table=table)
 	except Exception as e:
 		print(e)
 	finally:
@@ -109,18 +111,20 @@ def update_user():
 			#do not save password as a plain text
 			#_hashed_password = generate_password_hash(_password)
 			# save edits
-			sql = "UPDATE bse SET symbol=%s,date=%s,high=%s,low=%s,volume=%s,open=%s,close=%s, WHERE user_id=%s"
+			sql = "UPDATE bse SET symbol=%s,date1=%s,high=%s,low=%s,volume=%s,open=%s,close=%s, WHERE user_id=%s"
 			data = (_symbol,_date,_high,_low,_volume,_open,_close, _id,)
 			conn = mysql.connect()
 			cursor = conn.cursor()
 			cursor.execute(sql, data)
 			conn.commit()
-			flash('BSE details updated successfully!')
+			flash('BSE updated successfully!')
+			#return json.dumps({'message':'BSE details updated successfully!'})#('BSE details updated successfully!')
 			return redirect('/')
 		else:
 			return 'Error while updating user'
 	except Exception as e:
 		print(e)
+		#return 'Error'
 	finally:
 		cursor.close() 
 		conn.close()
